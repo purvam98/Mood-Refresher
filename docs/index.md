@@ -19,12 +19,12 @@ Role: Raj will work on React to contribute towards front-end development and Pur
 
 ---
 
-Project Sketch: 
+#### Project Sketch: 
 
 <img src = "https://github.com/purvam98/Mood-Refresher/blob/master/project%203.png" height = 300/>
 
 ---
 
-Project Management
+#### Project Management
 
 <img src = "https://github.com/purvam98/Mood-Refresher/blob/master/Trello_checkpoint.png" height = 300/>
