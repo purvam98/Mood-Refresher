@@ -1,15 +1,15 @@
 
 ---
 
-# Team members: Raj Patel, Purvam Chokshi, and Edward Finley
+### Team members: Raj Patel, Purvam Chokshi, and Edward Finley
 
 ---
 
-# Project: Mood Refresher
+### Project: Mood Refresher
 
 ---
 
-## Project overview: Mood Refresher is a web application that suggests user choices to refresh their mood based on their given location and few selections.
+#### Project overview: Mood Refresher is a web application that suggests user choices to refresh their mood based on their given location and few selections.
 
 ---
 
@@ -20,3 +20,5 @@ Role: Raj will work on React to contribute towards front-end development and Pur
 Project Sketch: 
 
 <img src = "https://github.com/purvam98/Mood-Refresher/blob/master/project%203.png" height = 300/>
+
+
