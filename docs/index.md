@@ -19,4 +19,4 @@ Role: Raj will work on React to contribute towards front-end development and Pur
 
 Project Sketch: 
 
-* ![alt text](https://raw.githubusercontent.com/purvam98/Mood-Refresher/master//to/img.png)
+<img src = "https://github.com/purvam98/Mood-Refresher/blob/master/project%203.png" height = 300/>
