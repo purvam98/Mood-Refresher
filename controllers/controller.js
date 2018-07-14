@@ -24,8 +24,10 @@ module.exports = {
   })
   .asPromise()
   .then((response) => {
+    //map(place => (
     //response => res.json(response.json.results);
-console.log(response.json.results)
+    res.send(response.json.results);
+    console.log(response.json.results[1])
   })
   .catch((err) => res.status(422).json(err));
   },
