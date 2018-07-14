@@ -5,14 +5,6 @@ const googleMapsClient = require('@google/maps').createClient({
   Promise: Promise
 });
 
-function Place(id, address, name, photos, rating) {
-  this.id = id;
-  this.address = formatted_address;
-  this.name = name;
-  this.photos = photos;
-  this.rating = rating;
-}
-
 module.exports = {
   getPlaces: function (req, res) {
     googleMapsClient.places({
@@ -26,9 +18,14 @@ module.exports = {
   .asPromise()
   .then((response) => {
     //let obj = Place(response.json.results[1].id, response.json.results[1].formatted_address, response.json.results[1].name, response.json.results[1].photos, response.json.results[1].rating)
-    //let obj = response.json.results.map(place => Place(place.id, place.formatted_address, place.name, place.photos, place.rating));
-    //console.log(obj);
-    res.send(response.json.results);
+    let obj = response.json.results.map(place => ({
+      'id': place.id,
+      'name': place.name,
+      'address': place.formatted_address,
+      'photos': place.photos,
+      'rating': place.rating,
+    }));
+    res.send(obj);
   })
   .catch((err) => res.status(422).json(err));
   },

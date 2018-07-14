@@ -22,7 +22,7 @@ class App extends Component {
 
   loadSave = () => {
     API.getPlaces().then(res =>
-      console.log(res)
+      this.setState({ places: res.data})
     )
     .catch(err => console.log(err));
   };
@@ -39,8 +39,8 @@ class App extends Component {
         </p>
         <List>
                 {this.state.places.map(place => (
-                  <ListItem key={place._id}>
-                  <div>{place.id}</div>
+                  <ListItem key={place.id}>
+                  <div>{place.address}</div>
                   {/* <a href={article.web_url}>{article.title}</a> */}
                   </ListItem>
                 ))}
