@@ -2,12 +2,7 @@ import axios from "axios";
 
 export default {
   getPlaces: function(searchTerm) {
-    const apiKey = "AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4";
-    let queryURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&key=";
-
-    queryURL += apiKey;
-    //queryURL += "&q=" + searchTer;
-    return axios.get(queryURL);
+    return axios.get("/api/articles");
   },
   getSearch: function(searchTerm) {
     let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";

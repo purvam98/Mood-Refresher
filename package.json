@@ -27,6 +27,7 @@
     "nodemon": "^1.18.0"
   },
   "dependencies": {
+    "@google/maps": "^0.5.4",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",

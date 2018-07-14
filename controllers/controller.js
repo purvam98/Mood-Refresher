@@ -1,7 +1,34 @@
 const db = require("../models");
 const path = require("path");
+const googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4',
+  Promise: Promise
+});
+
+function Person(id, last, age, eye) {
+  this.id = id;
+  this.lastName = last;
+  this.age = age;
+  this.eyeColor = eye;
+}
 
 module.exports = {
+  getPlaces: function (req, res) {
+    googleMapsClient.places({
+      query: 'chickfila',
+      location: {
+        lat: 33.7490,
+        lng: 84.3880
+      },
+      radius: 10
+  })
+  .asPromise()
+  .then((response) => {
+    //response => res.json(response.json.results);
+console.log(response.json.results)
+  })
+  .catch((err) => res.status(422).json(err));
+  },
   findSaved: function (req, res) {
     db.Article
       .find(req.query)

@@ -3,7 +3,7 @@ const controller = require("../../controllers/controller");
 
 router
   .route("/")
-  .get(controller.findSaved)
+  .get(controller.getPlaces)
   .post(controller.save)
   .delete(controller.remove);
 

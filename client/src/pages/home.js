@@ -22,7 +22,7 @@ class App extends Component {
 
   loadSave = () => {
     API.getPlaces().then(res =>
-      this.setState({ places: res.data})
+      console.log(res)
     )
     .catch(err => console.log(err));
   };
