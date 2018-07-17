@@ -1,11 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import home from "./pages/home";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home";
+import Nav from "./components/Nav";
 
 const App = () => (
   <Router>
     <div>
-        <Route exact path="/" component={home} />
+    <Nav/>
+    <Switch>
+        <Route exact path="/" component={Home} />
+    </Switch>
     </div>
   </Router>
 );
