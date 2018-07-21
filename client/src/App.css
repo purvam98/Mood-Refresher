@@ -26,3 +26,24 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+.title
+{
+  font-size: 20px;
+  font-weight: 300;
+  color: #444;
+  position: relative;
+  display: block;
+  padding-bottom: 20px;
+  line-height: 1.5;
+}
+.button
+{
+  color: #FFFFFF;
+  list-style-type: none;
+  float: left;
+  background: rgb(225, 120, 120);;
+  padding: 10px 30px;
+  margin-left: 80px;
+  border-radius: 7px;
+  font-size: 20px;
+}

@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
-    "client": "cd client && npm run start",
-    "install": "cd client && yarn install",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "start": "node server.js",
+    "dev": "npm-run-all -p dev:server dev:client",
+    "dev:client": "cd client && yarn start",
+    "dev:server": "nodemon --ignore 'client/*'",
+    "postinstall": "cd client && yarn install && yarn run build"
   },
   "repository": {
     "type": "git",
@@ -24,7 +22,8 @@
   "homepage": "https://github.com/purvam98/Mood-Refresher#readme",
   "devDependencies": {
     "concurrently": "^3.6.0",
-    "nodemon": "^1.18.0"
+    "nodemon": "^1.18.0",
+    "npm-run-all": "^4.1.3"
   },
   "dependencies": {
     "@google/maps": "^0.5.4",

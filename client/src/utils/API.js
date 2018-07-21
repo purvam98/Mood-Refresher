@@ -17,6 +17,12 @@ export default {
     // }
     return axios.get(queryURL);
   },
+  getWeather:function(searchZipcode)
+  {
+    const wuAPIKey = "a4c27a2f36ce4003";
+    const queryURL = "https://api.wunderground.com/api/" + wuAPIKey + "/conditions/q/" + searchZipcode + ".json";
+    return axios.get(queryURL);
+  },
   getSaved: function() {
     return axios.get("/api/articles");
   },

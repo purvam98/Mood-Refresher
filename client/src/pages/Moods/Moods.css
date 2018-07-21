@@ -1,0 +1,60 @@
+.title
+{
+    font-size: 20px;
+    font-weight: 300;
+    color: #444;
+    position: relative;
+    display: block;
+    padding-bottom: 20px;
+    line-height: 1.5;
+}
+h2::after{
+    content: "";
+    position: absolute;
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: rgb(225, 120, 120);;
+    left: 46%;
+
+    bottom: 0;
+}
+ul.vibes li {
+    color: #FFFFFF;
+    list-style-type: none;
+    float: left;
+    background: rgb(225, 120, 120);;
+    padding: 10px 30px;
+    margin: 5px;
+    border-radius: 7px;
+    font-size: 20px;
+
+}
+.weather
+{
+    color:rgb(225, 120, 120);;
+}
+ul.places li{
+    float: left;
+    margin: 1%;
+    width: 30%;
+    display: inline-block;
+    display: inline-block;
+    
+    text-align: center;
+    
+    
+}
+ul.places img{
+    width: 80%;
+    border-radius: 30%;
+    border: 5px solid rgb(225, 120, 120);;
+    background: #ffffff;
+    
+    
+}
+.headingplace
+{
+    color: #292F36;
+    font-size: 20px;
+}

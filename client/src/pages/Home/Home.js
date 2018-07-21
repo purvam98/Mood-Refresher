@@ -6,6 +6,7 @@ import { List, ListItem } from "../../components/List";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Link } from "react-router-dom";
 
 class App extends Component {
 
@@ -31,6 +32,7 @@ class App extends Component {
   //   )
   //   .catch(err => console.log(err));
   // };
+      
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -39,6 +41,7 @@ class App extends Component {
   };
   handleFormSubmit = event => {
     event.preventDefault();
+
   };
 
   render() {
@@ -65,24 +68,24 @@ class App extends Component {
         <br />
         <br />
         <Row>
-          <Col size="md-3">
+          <Col size="md-4">
           </Col>
           <Col size="md-6">
             <img src={header} />
           </Col>
-          <Col size="md-3">
-          </Col>
+
         </Row>
         <Row>
           <Col size="md-3">
           </Col>
-          <Col size="md-6">
-            <h3>Enter Your Zipcode to refresh your  Mood</h3>
+          <Col size="md-1">
           </Col>
-          <Col size="md-3">
+          <Col size="md-4 ">
+            <h3 className="title">Enter Your Zipcode to refresh your  Mood</h3>
           </Col>
+
         </Row>
-        <br />
+        
         <Row>
           <Col size="md-5">
           </Col>
@@ -95,16 +98,15 @@ class App extends Component {
                 name="zipcode"
                 placeholder="Enter the ZipCode"
               />
-              <FormBtn
-                disabled={!(this.state.zipcode)}
-                onClick={this.handleFormSubmit}
+              <a
+                href={"/Moods/"+this.state.zipcode}
+                className="button"
               >
                 Submit
-              </FormBtn>
+              </a>
             </form>
           </Col>
-          <Col size="md-4">
-          </Col>
+
         </Row>
       </Container>
     );
