@@ -1,8 +1,23 @@
 import axios from "axios";
 
 export default {
-  getPlaces: function(searchTerm) {
-    return axios.get("/api/articles");
+  getPlaces: function(lat,long,category) {
+    return axios.get("/api/articles", {
+      params: {
+        lat: lat,
+        long: long,
+        category:category
+      }
+    })
+  },
+  getPlacesDetails:function(id)
+  {
+    console.log(id);
+    return axios.get("/api/articles/details",{
+      params:{
+        id:id
+      }
+    })
   },
   getSearch: function(searchTerm) {
     let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -22,6 +37,13 @@ export default {
     const wuAPIKey = "a4c27a2f36ce4003";
     const queryURL = "https://api.wunderground.com/api/" + wuAPIKey + "/conditions/q/" + searchZipcode + ".json";
     return axios.get(queryURL);
+  },
+  getLatLong:function(searchZipcode)
+  {
+    const Apikey="AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4";
+    const queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + searchZipcode + "&key=" + Apikey;
+    return axios.get(queryURL);    
+
   },
   getSaved: function() {
     return axios.get("/api/articles");

@@ -10,7 +10,7 @@ class Moods extends Component {
     weather_1:"",
     weather_2:"",
     joie:"true",
-    moods:["Fun","Romantic","Chill","Sporty","Extreme"],
+    moods:["Fun","Romantic","Chill","Sporty","Peaceful"],
     justclick:"",
     fun:["icecream.png","movies.png"],
     places:[]
@@ -33,12 +33,31 @@ class Moods extends Component {
   };
   handleMood(mood)
   {
-    this.setState({ justclick: mood });
-    if(this.state.mood="fun")
+    
+    console.log(mood);
+    if(mood==="Fun")
     {
-      this.setState({ places: ["icecream","bowling","drink","movies"] });
+      
+     return this.setState({ places: ["icecream","bowling","aquarium","movie theater","restaurant","zoo"] });
       
     }
+    else if(mood==="Romantic")
+    {
+      return this.setState({places:["cafe","park","bar","movie theater","restaurant","icecream"]});
+    }
+    else if(mood==="Chill")
+    {
+      return this.setState({places:["art_gallery","spa","night_club","fishing","casino","picnic"]});
+    }
+    else if(mood==="Sporty")
+    {
+      return this.setState({places:["tennis","hike","golf","paintball","volleyball","baseball"]});
+    }
+    else if(mood==="Peaceful")
+    {
+      return this.setState({places:["library","church","museum","temple","park","mosque"]});
+    }
+
   }
   render() {
 
@@ -86,9 +105,11 @@ class Moods extends Component {
           
             <ul className="places">
             {this.state.places.map(place =>
+              
               <li key={place}>
-                <img src={require(`./${place}.png`)} className="img" /><font className="headingplace">{place}</font>
-              </li>
+               <a href={"/results/"+this.state.zipcode+"/"+place}> <img src={require(`./${place}.png`)} className="img" /><br/><font className="headingplace">{place}</font></a></li>
+                
+              
             )}
             </ul>
             
