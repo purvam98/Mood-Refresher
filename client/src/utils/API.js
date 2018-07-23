@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   getPlaces: function(lat,long,category) {
-    return axios.get("/api/articles", {
+    return axios.get("/api/mood", {
       params: {
         lat: lat,
         long: long,
@@ -13,7 +13,7 @@ export default {
   getPlacesDetails:function(id)
   {
     console.log(id);
-    return axios.get("/api/articles/details",{
+    return axios.get("/api/mood/details",{
       params:{
         id:id
       }
@@ -46,13 +46,28 @@ export default {
 
   },
   getSaved: function() {
-    return axios.get("/api/articles");
+    return axios.get("/api/mood");
   },
   deleteSaved: function(id) {
-    return axios.delete("/api/articles/" + id);
+    return axios.delete("/api/mood/" + id);
   },
   save: function(data) {
     console.log(data)
-    return axios.post("/api/articles", data);
-  }
+    return axios.post("/api/mood/", data);
+  },
+  register: function(data) {
+    return axios.post("/api/mood/users", data);
+  },
+  login: function(data) {
+    let email = data.email
+    return axios.get("/api/mood/users", {
+      params: {
+        email: email,
+        password: data.password
+      }
+    })
+  },
+  getProfile: function(id) {
+    return axios.get("/api/mood/users/auth/" + id)
+  },
 };
