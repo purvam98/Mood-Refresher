@@ -71,6 +71,19 @@ class Results extends Component {
                 console.log(err);
             });
     };
+    submit = (id) => {
+        let result = this.state.places.filter(obj => {
+            return obj.place_id === id
+          })
+        API.save(result[0])
+            .then((res) => {
+                //this.setState({ msg: res.data })  
+                console.log(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+    };
+
     dothething = (places) => {
         places.forEach(place => {
             if (place.photos) {
@@ -178,6 +191,7 @@ class Results extends Component {
                                 <h3 className="title middle">{place.name}</h3>
                                 <img className="img_middle" align="middle" src={place.photos !== "oops" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + place.photos + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} width="300px" height="200px" />
                                 <button onClick={() => this.handleDetails(place.place_id)} type="button" class="btn btn-primary button_details">More Details</button>
+                                <button onClick={() => this.submit(place.place_id)}>Save Place</button>
                             </div>
                         </Col>
                     ))}
