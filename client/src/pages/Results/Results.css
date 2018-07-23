@@ -1,0 +1,45 @@
+.title
+{
+    font-size: 20px;
+    font-weight: 300;
+    color: #444;
+    position: relative;
+    display: block;
+    padding-bottom: 20px;
+    line-height: 1.5;
+}
+.weather
+{
+    color:rgb(225, 120, 120);;
+}
+.middle
+{
+    text-align: center;
+    
+}
+.div
+{
+    float: left;
+    width: 350px;
+    margin: 5%;
+    background: #fffade;
+    padding: 10px;
+    height: 350px;
+    border-radius: 8px;
+
+}
+.img_middle
+{
+    margin-left:15px;
+    
+}
+.button_details
+{
+    margin-top:10px;
+    margin-left:115px;
+}
+.size
+{
+    font-size: 17px;
+    font-weight: inherit;
+}
