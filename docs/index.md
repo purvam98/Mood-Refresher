@@ -15,9 +15,8 @@ Raj Patel, Purvam Chokshi, and Edward Finley
 
 #### Functionality:
 
-* The user is brought to a landing page that introduces Date Duck and prompts them to click to get started.
+* The user is brought to a landing page that introduces Mood Refresher and prompts them to click to get started.
 * They are then redirected to a new page and asked to input their zip code.
-
 
 
 #### Link:
