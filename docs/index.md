@@ -13,16 +13,14 @@
 
 ---
 
-#### Team Member Roles:
+#### Functionality:
 
-Role: Raj will work on React to contribute towards front-end development and Purvam will be integrating multiple APIs and calling GET and POST routes for data on the screen. Edward will be working on User Authentication and confirming MVC paradigm for the folder structure. In regards to database, our team has decided to use Mongo DB, Raj will be working on database portion of the project and together we all will work together to utilize/ integrate two new library, packages, or technologies. 
-
----
-
-#### Project Sketch: 
-
+* The user is brought to a landing page that introduces Date Duck and prompts them to click to get started.
+* They are then redirected to a new page and asked to input their zip code.
 
 ---
 
-#### Project Management
+#### Link:
+
+
 
