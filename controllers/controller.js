@@ -35,21 +35,15 @@ module.exports = {
           'place_id': place.place_id
         }));
         res.send(obj);
-
-        console.log(obj);
-
       })
       .catch((err) => res.status(422).json(err));
   },
   getPlacesDetails: function (req, res) {
-    console.log(req.query.id);
     googleMapsClient.place({
       placeid: req.query.id
     })
       .asPromise()
       .then((response) => {
-
-
         res.send(response.json.result);
       })
   },
@@ -80,7 +74,6 @@ module.exports = {
     }).catch(err => res.status(403).json(err))
   },
   remove: function (req, res) {
-    console.log(req.params.id)
     //db.users.update({_id: ObjectId("5b500eb398ac8f428c3683c8")}, {$pull: { places: [ "09c9f64cbaab0fb65fb52d19047760998d80a34b" ]}})
     db.User
       .findById({ _id: req.params.id })

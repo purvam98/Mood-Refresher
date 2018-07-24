@@ -13,20 +13,39 @@ class Moods extends Component {
     moods:["Fun","Romantic","Chill","Sporty","Peaceful"],
     justclick:"",
     fun:["icecream.png","movies.png"],
-    places:[]
+    faved:[]
   };
   componentDidMount() {
     this.setState({
       zipcode: this.props.match.params.zipcode
     });
      this.loadWeather();
-  }
+     this.getProfile();
+  };
+
+  getProfile() {
+    API.getProfile()
+      .then(res => {
+        if (res.status === 200) {
+          this.setState({ status: 200 });
+          this.setState({ logged: res.data.success, id: res.data.id, faved: res.data.places });
+        } else {
+          this.setState({ status: 403 });
+        }
+      }
+      ).catch(err => {
+        if (err.response.status === 403) {
+          this.setState({ status: 403 });
+        }
+      }
+      );
+  };
+
     loadWeather = () => {
       API.getWeather(this.props.match.params.zipcode)
       .then((res) => {
           this.setState({ weather_1: res.data.current_observation.weather });
           this.setState({ weather_2: res.data.current_observation.temp_f });
-          
       }).catch((err) => {
           console.log(err);
       });
@@ -63,7 +82,7 @@ class Moods extends Component {
 
     return (
       <div>
-        <Nav logged={this.state.logged} />
+        <Nav logged={this.state.logged} id={this.state.id} faved={this.state.places}/>
       <Container fluid>
         
         <Row>
@@ -73,17 +92,14 @@ class Moods extends Component {
         </Row>
       
         <Row>
-
           <Col size="md-12" align="center">
             <h2 className="title" align="center">Tap on the moods you're looking for!</h2>
           </Col>
-
         </Row>
         
         <Row>
           <Col size="md-3">
           </Col>
-
           <Col size="md-8">
             <ul className="vibes">
             {this.state.moods.map(mood =>
@@ -92,32 +108,20 @@ class Moods extends Component {
               </li>
             )}
             </ul>
-            
           </Col>
-
         </Row>
         <Row>
-          <Col size="md-2">
-          
-          </Col>
-
+          <Col size="md-2"></Col>
           <Col size="md-8">
           <br/>
-          
             <ul className="places">
             {this.state.places.map(place =>
-              
               <li key={place}>
-               <a href={"/results/"+this.state.zipcode+"/"+place}> <img src={require(`./${place}.png`)} className="img" /><br/><font className="headingplace">{place}</font></a></li>
-                
-              
+               <a href={"/results/"+this.state.zipcode+"/"+place}> <img src={require(`./${place}.png`)} className="img" /><br/><font className="headingplace">{place}</font></a></li>    
             )}
             </ul>
-            
           </Col>
-
         </Row>
-
       </Container>
       </div>
     );

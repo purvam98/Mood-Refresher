@@ -47,7 +47,6 @@ class Results extends Component {
 
     handleOpenModal() {
         this.setState({ showModal: true });
-        console.log(this.state.showModal);
     }
 
     handleCloseModal() {
@@ -123,24 +122,16 @@ class Results extends Component {
             }
         })
         this.setState({ places_final: places });
-        console.log(places)
     }
     loadlatlong = () => {
         API.getLatLong(this.props.match.params.zipcode)
             .then((res) => {
                 this.setState({ lat: res.data.results[0].geometry.location.lat });
                 this.setState({ long: res.data.results[0].geometry.location.lng });
-                console.log(this.state.lat);
-                console.log(this.state.long);
                 API.getPlaces(this.state.lat, this.state.long, this.props.match.params.place)
                     .then((res) => {
                         this.setState({ places: res.data })
-                        console.log(this.state.places);
-
-
                         this.dothething(this.state.places)
-
-
                     }).catch((err) => {
                         console.log(err);
                     });

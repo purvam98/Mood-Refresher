@@ -1,24 +1,27 @@
 import React, { Component } from "react";
 import Nav from "../../components/Nav";
 import { Redirect } from 'react-router';
-import { Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import API from "../../utils/API";
+import { Col, Row, Container } from "../../components/Grid";
 
 class Login extends Component {
   state = {
     email: "",
     password: "",
-    redirect: "",
+    logged: "",
     id: ""
   };
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
-  // componentDidMount() {
-  //   API.getBook(this.props.match.params.id)
-  //     .then(res => this.setState({ book: res.data }))
-  //     .catch(err => console.log(err));
-  // }
+
+  componentDidMount() {
+    this.auth();
+  };
+  auth = () => {
+    API.authenticate().then(res =>
+      this.setState({ logged: res.data.success }),
+    )
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -60,31 +63,62 @@ class Login extends Component {
     }
 
     return (
-      <div>
-      <Nav logged={this.state.logged}/>
-      <Container fluid>
-        <form>
-              <Input
-                value={this.state.email}
-                onChange={this.handleInputChange}
-                name="email"
-                placeholder="email (required)"
-              />
-              <Input
-                value={this.state.password}
-                onChange={this.handleInputChange}
-                name="password"
-                placeholder="password (required)"
-              />
-              <FormBtn
-                disabled={!(this.state.email && this.state.password)}
-                onClick={this.handleFormSubmit}
-              >
-                Login
-              </FormBtn>
-            </form>
-      </Container>
-      </div>
+            <div>
+            <Nav logged={this.state.logged}/>
+            <Container fluid>
+              <br />
+              <br />
+              <br />
+              <form>
+                <Row>
+                <Col size="md-12">
+                    <div className="row align-items-center justify-content-center">
+                      <div className="col-md-4">
+                    <h3 className="title">Login</h3>
+                    </div>
+                    </div>
+                  </Col>
+                  <Col size="md-12">
+                    <div className="row align-items-center justify-content-center">
+                      <div className="col-md-4">
+                        <Input
+                          value={this.state.email}
+                          onChange={this.handleInputChange}
+                          name="email"
+                          placeholder="email (required)"
+                        />
+                      </div>
+                    </div>
+                  </Col>
+                  <Col size="md-12">
+                    <div className="row align-items-center justify-content-center">
+                      <div className="col-md-4">
+                        <Input
+                          value={this.state.password}
+                          onChange={this.handleInputChange}
+                          name="password"
+                          placeholder="password (required)"
+                        />
+                      </div>
+                    </div>
+                  </Col>
+                  <Col size="md-12">
+                    <div className="row align-items-center justify-content-center">
+                      <div className="col-md-4">
+                        <FormBtn
+                          disabled={!(this.state.email && this.state.password)}
+                          onClick={this.handleFormSubmit}
+                        >
+                          Login
+                    </FormBtn>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </form>
+      
+            </Container>
+            </div>
     );
   }
 }

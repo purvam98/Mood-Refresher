@@ -52,8 +52,7 @@ class Nav extends Component {
     this.setState({ show: false });
   }
 
-  logout = (event) => {
-    //event.preventDefault();
+  logout = () => {
     API.logout()
   }
 
@@ -81,23 +80,16 @@ class Nav extends Component {
               {!this.props.logged && <a className="nav-link" href="/login"><font className="textcolor"><b>Login</b></font></a>}
               {this.props.logged && <a className="nav-link" href="/" onClick={this.logout}><font className="textcolor"><b>Logout</b></font></a>}
             </li>
-            <li className="nav-item">
+            {!this.props.logged && <li className="nav-item">
               <a className="nav-link" href="/Register"><font className="textcolor"><b>Register</b></font></a>
-            </li>
+            </li>}
             <li className="nav-item">
               <a className="nav-link" href="/"><font className="textcolor"><b>About</b></font></a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/"><font className="textcolor"><b>Contact</b></font></a>
             </li>
-            {/* <li className="nav-item">
-              <a className="nav-link" href={"/users/auth/"}><font className="textcolor"><b>my page</b></font></a>
-            </li> */}
           </ul>
-          {/* <form className="form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> */}
           <button type="button" onClick={this.handleShow}>
             My Stuff
         </button>
@@ -167,7 +159,6 @@ class Nav extends Component {
                         <div className="col-md-12 text-center">
                           <br />
                           <img className="img_middle" align="middle" src={this.state.photo_d !== "-" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + this.state.photo_d + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} width="400px" height="200px" />
-
                           <br />
                           <br />
                           <button type="button" className="btn btn-primary" onClick={this.nextpitcure}>Next</button>
