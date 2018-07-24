@@ -37,7 +37,8 @@ class Results extends Component {
             photo_d: "",
             i: 1,
             logged: "",
-
+            id: '',
+            favedPlaces: []
         };
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -59,15 +60,31 @@ class Results extends Component {
             zipcode: this.props.match.params.zipcode
         });
         this.setState({
-
             category: this.props.match.params.place
-
         });
         this.loadWeather();
         this.loadlatlong();
-        this.auth();
-
+        this.getProfile()
     }
+
+    getProfile() {
+        API.getProfile()
+          .then(res => {
+            if (res.status === 200) {
+              this.setState({ status: 200 })
+              this.setState({ logged: res.data.success, id: res.data.id, favedPlaces: res.data.places })
+            } else {
+              this.setState({ status: 403 })
+            }
+          }
+          ).catch(err => {
+            if (err.response.status === 403) {
+              this.setState({ status: 403 })
+            }
+          }
+          );
+      };
+
     loadWeather = () => {
         API.getWeather(this.props.match.params.zipcode)
             .then((res) => {
@@ -78,17 +95,24 @@ class Results extends Component {
                 console.log(err);
             });
     };
+
     submit = (id) => {
-        let result = this.state.places.filter(obj => {
-            return obj.place_id === id
-        })
-        API.save(result[0])
-            .then((res) => {
-                //this.setState({ msg: res.data })  
-                console.log(res.data);
-            }).catch((err) => {
-                console.log(err);
-            });
+        if (this.state.logged) {
+            let result = this.state.places.filter(obj => {
+                return obj.place_id === id
+            })
+
+            API.save(result[0])
+                .then((res) => {
+                    alert("Its been added in your favourite list.");
+                    console.log(res.data);
+                }).catch((err) => {
+                    console.log(err);
+                });
+        }
+        else {
+           alert("Please Login First");
+        }
     };
 
     dothething = (places) => {
@@ -181,7 +205,7 @@ class Results extends Component {
     render() {
         return (
             <div>
-                <Nav logged={this.state.logged} />
+                <Nav logged={this.state.logged} id={this.state.id} places={this.state.favedPlaces}/>
                 <Container fluid>
 
                     <Row>
@@ -290,19 +314,15 @@ class Results extends Component {
                         <Col size="md-12" align="center">
 
                             <div className="col-md-12 text-center">
-                                <button onClick={this.handleCloseModal} type="button" class="btn btn-primary">Close</button>
-                                &nbsp;
-                    <button type="button" class="btn btn-primary">Add To Favourite</button>
-
+                                <button onClick={this.handleCloseModal} type="button" class="btn btn-primary">Close</button>&nbsp;
+                                <button type="button" class="btn btn-primary">Add To Favourite</button>
                             </div>
                         </Col>
                     </ReactModal>
                 </Container>
             </div>
-
-
-
         )
     }
 }
+
 export default Results;

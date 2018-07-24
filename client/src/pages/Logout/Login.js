@@ -52,7 +52,7 @@ class Login extends Component {
   render() {
     if (this.state.redirect === 200){ 
       console.log(this.state.redirect)
-      return <Redirect to={"/"} />
+      return <Redirect to={"/users/auth/" + this.state.id} />
       // "/books/" + book._id
       // or <Redrect to="/thankyou" /> if you are using react-router
     } else if (this.state.redirect === 403) {

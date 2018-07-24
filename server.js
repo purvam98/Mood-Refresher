@@ -25,18 +25,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('api/mood/users/auth/', jwtExp({
-  secret: agentMan.secret,
-  getToken: (req) => {return (req.signedCookies) ? req.signedCookies.jwtAuthToken : null},
-}), (req, res, next) => {
-  (req.user) ? next() : res.redirect('api/mood/login');
-});
-
-app.use((err, req, res, next) => {
-  if (err.name === 'UnauthorizedError') { 
-    res.redirect('api/mood/login');
-  }
-});
 // Add routes, both API and view
 app.use(routes);
 

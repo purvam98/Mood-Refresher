@@ -14,7 +14,7 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    API.getProfile(this.props.match.params.id)
+    API.getProfile()
       .then(res => {
         console.log(res)
         if (res.status === 200) {

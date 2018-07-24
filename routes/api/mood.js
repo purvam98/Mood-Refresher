@@ -8,6 +8,10 @@ router
   .post(controller.save)
 
 router
+  .route("/logout")
+  .get(controller.logout)
+
+router
   .route("/auth/nav")
   .get(controller.authenticate)
 
@@ -25,7 +29,7 @@ router
   .post(controller.register)
 
 router
-  .route("/users/auth/:id")
+  .route("/users/auth/")
   .get(controller.profile)
 
 router

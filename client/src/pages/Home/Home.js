@@ -21,16 +21,15 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.auth();
+    this.getProfile();
   }
 
   getProfile() {
-    API.getProfile(this.props.id)
+    API.getProfile()
       .then(res => {
-        console.log(res.data)
         if (res.status === 200) {
           this.setState({ status: 200 })
-          this.setState({ places: res.data })
+          this.setState({ logged: res.data.success, id: res.data.id, places: res.data.places })
         } else {
           this.setState({ status: 403 })
         }
@@ -50,16 +49,6 @@ class App extends Component {
   handleShow() {
     this.setState({ show: true });
   }
-
-  auth = () => {
-    API.authenticate().then(res =>
-      this.setState({ logged: res.data.success, id: res.data.decoded.id })
-    )
-      .catch(err => console.log(err));
-      if (this.state.logged) {
-        this.getProfile(this.state.id)
-      }
-  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -81,7 +70,7 @@ class App extends Component {
 
     return (
       <div>
-        <Nav logged={this.state.logged} id={this.state.id}/>
+        <Nav logged={this.state.logged} id={this.state.id} places={this.state.places}/>
 
         <Container fluid>
           <br />

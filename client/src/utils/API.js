@@ -70,7 +70,10 @@ export default {
   authenticate: () => {
     return axios.get("/api/mood/auth/nav/");
   },
-  getProfile: function(id) {
-    return axios.get("/api/mood/users/auth/" + id)
+  getProfile: function() {
+    return axios.get("/api/mood/users/auth/")
   },
+  logout: function() {
+    return axios.get("/api/mood/logout")
+  }
 };

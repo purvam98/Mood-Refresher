@@ -1,5 +1,7 @@
 const db = require("../models");
 const path = require("path");
+const express = require("express");
+const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const verifyToken = require('../authService.js').verifyToken
@@ -170,7 +172,11 @@ module.exports = {
         res.json(result);
       }).catch(err => res.status(403).json(err));
     }
-
+  },
+  logout: (req, res) => {
+    console.log(res)
+    res.clearCookie('jwtAuthToken', { path: '/', credentials: 'same-origin' }).status(200).send('Ok.')
+    //res.clearCookie("jwtAuthToken");
   },
   authenticate: (req, res) => {
     if (Object.keys(req.signedCookies).length === 0) {
@@ -180,7 +186,6 @@ module.exports = {
       })
     } else {
       verifyToken(req).then(result => {
-        console.log(result.decoded.userId)
         result.success ? result.decoded = {
           'username': result.decoded.username,
           'id': result.decoded.userId
@@ -202,9 +207,13 @@ module.exports = {
       verifyToken(req).then(result => {
         if (result.success) {
           db.User
-            .findById({ _id: req.params.id })
+            .findById({ _id: result.decoded.userId })
             .sort({ date: -1 })
-            .then(dbModel => res.json(dbModel.places))
+            .then(dbModel => res.json({
+              'id': result.decoded.userId,
+              'success': result.success,
+              'places': dbModel.places
+            }))
             .catch(err => res.status(422).json(err));
         } else {
           res.sendStatus(403)

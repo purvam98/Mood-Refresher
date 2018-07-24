@@ -6,7 +6,6 @@ const db = require("./models");
 // function for verifying tokens
 function verifyToken(req) {
     return new Promise(function (resolve, reject) {
-        console.log(req.signedCookies)
         let result = {
             decoded: '',
             success: true
