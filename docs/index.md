@@ -1,7 +1,8 @@
 
 
 
-### Team members: Raj Patel, Purvam Chokshi, and Edward Finley
+### Team members: 
+Raj Patel, Purvam Chokshi, and Edward Finley
 
 ---
 
