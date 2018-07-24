@@ -33,11 +33,15 @@ class Results extends Component {
             review1_author_text:"",
             review2_author_text:"",
             review3_author_text:"",
+            photo_d:"",
+            i:1
 
         };
+        
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
     }
+    
     handleOpenModal() {
         this.setState({ showModal: true });
         console.log(this.state.showModal);
@@ -137,9 +141,33 @@ class Results extends Component {
                 {
                     this.setState({ reviews: "-" })
                 }
+                if(this.state.details.hasOwnProperty('photos'))
+                {
+                
+                    this.setState({photo_d:this.state.details.photos[0].photo_reference});
+                }
+                else
+                {
+                    this.setState({photo_d:"-"});
+                }
             });
         this.handleOpenModal();
     };
+    nextpitcure=()=>{
+        this.state.i=this.state.i+1;
+        if(this.state.details.photos[this.state.i])
+        {
+
+        
+        this.setState({photo_d:this.state.details.photos[this.state.i].photo_reference});
+        }
+        else
+        {
+            this.setState({i:0});
+            this.setState({photo_d:this.state.details.photos[0].photo_reference});   
+        }
+    };
+
     render() {
         return (
             // <List>
@@ -218,6 +246,19 @@ class Results extends Component {
 
                     </Col>
                     <Col size="md-12" align="center">
+                    <div className="col-md-12 text-center">
+                    <br/> 
+                    <img className="img_middle" align="middle" src={this.state.photo_d !== "-" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + this.state.photo_d+ "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} width="400px" height="200px" />
+
+                    <br/>
+                    <br/>
+                    <button type="button" class="btn btn-primary" onClick={this.nextpitcure}>Next</button>
+                    </div>
+                    </Col>
+                    <br/>
+                    <br/>
+                    <Col size="md-12" align="center">
+                    <br/>
                     <h2 className="title" align="center">Reviews</h2>
                     </Col>
                     <br/>
