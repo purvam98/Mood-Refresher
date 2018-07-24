@@ -98,7 +98,7 @@ class Moods extends Component {
           </Col>
         </Row>
         
-        <Row>
+        <Row style={{justifyContent: 'center', alignItems: 'center'}}>
           <Col size="md-3">
           </Col>
           <Col size="md-8">

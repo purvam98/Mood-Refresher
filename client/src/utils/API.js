@@ -71,7 +71,7 @@ export default {
     return axios.get("/api/mood/auth/nav/");
   },
   getProfile: function() {
-    return axios.get("/api/mood/users/auth/")
+    return axios.get("/api/mood/users/auth")
   },
   logout: function() {
     return axios.get("/api/mood/logout")

@@ -57,6 +57,7 @@ class App extends Component {
     this.setState({
       [name]: value
     });
+    console.log(this.state.zipcode)
   };
   handleFormSubmit = event => {
     event.preventDefault();
@@ -100,30 +101,38 @@ class App extends Component {
           </Row>
 
           <Row>
-            <Col size="md-5">
+            <Col size="md-4">
             </Col>
-            <Col size="md-3">
+            <Col size="md-7">
               {/* <Form>
                 <FormGroup controlId="formInlineEmail">
                   <ControlLabel>Zipcode</ControlLabel>{' '}
-                  <FormControl value={this.state.zipcode}type="text" placeholder="Enter Zip" />
+                  <FormControl value={this.state.zipcode} type="text" placeholder="Enter Zip" />
                 </FormGroup>{' '}
-                <Button type="submit" OnSubmit={this.handleInputChange}>Find Yo Moods</Button>
-              </Form>; */}
-              <form style={{flexDirection: "row"}}>
-
+                <Button type="submit" onSubmit={this.handleInputChange}>Find Yo Moods</Button>
+              </Form> */}
+              <form style={{width: '100%'}}>
+              <Row style={{margin: '0px'}}>
+              <Col size="md-4" style={{margin: '0px'}}>
                 <Input
                   value={this.state.zipcode}
                   onChange={this.handleInputChange}
                   name="zipcode"
                   placeholder="Enter the ZipCode"
+                  style={{width: '100%', height: '40px', lineHeight: '20px', fontSize: '20px', padding: '5px', width: 'auto', float: 'left'}}
+
                 />
+                </Col>
+                <Col size="md-4">
                 <a
                   href={"/Moods/" + this.state.zipcode}
                   className="button"
+                  style={{height: '40px', margin: '0px', lineHeight: '20px', fontSize: '20px', float: 'left', justifyContent: 'center', alignItems: 'center'}}
                 >
                   Submit
               </a>
+              </Col>
+              </Row>
               </form>
             </Col>
 

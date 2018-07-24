@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const controller = require("../../controllers/controller");
-const verifyToken = require('../../auth.js').verifyToken
 const cookieParser = require('cookie-parser');
 const agentMan = require('../../config/config.js');
 router.use(cookieParser(agentMan.secret));

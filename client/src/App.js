@@ -5,7 +5,6 @@ import Nav from "./components/Nav";
 import Moods from "./pages/Moods";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Profile from "./pages/Profile";
 import Results from "./pages/Results";
 import NoMatch from "./pages/NoMatch";
 

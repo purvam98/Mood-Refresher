@@ -14,7 +14,6 @@ const googleMapsClient = require('@google/maps').createClient({
 
 module.exports = {
   getPlaces: function (req, res) {
-    console.log(req);
     googleMapsClient.places({
       query: req.query.category,
       location: {

@@ -13,7 +13,8 @@ class Register extends Component {
     username: "",
     email: "",
     password: "",
-    logged: ""
+    logged: "",
+    status: ""
   };
   componentDidMount() {
     this.auth();
@@ -39,7 +40,7 @@ class Register extends Component {
         email: this.state.email,
         password: this.state.password
       }).then(res =>
-        this.setState({ username: "", password: "", email: "" })
+        this.setState({ username: "", password: "", email: "", status: res.status })
         )
         .catch(err => console.log(err));
     }
