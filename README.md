@@ -7,7 +7,7 @@
 
 ## Functionality:
 
-* The user is prompted to select what sort of "vibe" they would like for their date(Fun, Romantic, Chill, Sporty, or Extreme).
+* The user is prompted to select what sort of "vibe" they would like for their date(Fun, Romantic, Chill, Sporty, or Peaceful).
 * When they make their selection they are given 3 things to do on their date, and options for their area.
 
 ### Link:
