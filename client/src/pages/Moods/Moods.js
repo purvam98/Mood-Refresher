@@ -13,7 +13,8 @@ class Moods extends Component {
     moods:["Fun","Romantic","Chill","Sporty","Peaceful"],
     justclick:"",
     fun:["icecream.png","movies.png"],
-    faved:[]
+    faved: [],
+    places: []
   };
   componentDidMount() {
     this.setState({
@@ -82,7 +83,7 @@ class Moods extends Component {
 
     return (
       <div>
-        <Nav logged={this.state.logged} id={this.state.id} faved={this.state.places}/>
+        <Nav logged={this.state.logged} id={this.state.id} places={this.state.faved}/>
       <Container fluid>
         
         <Row>

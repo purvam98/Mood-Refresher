@@ -167,8 +167,8 @@ module.exports = {
     }
   },
   logout: (req, res) => {
-    console.log(res)
-    res.clearCookie('jwtAuthToken', { path: '/', credentials: 'same-origin' }).status(200).send('Ok.')
+    //console.log(res)
+    res.clearCookie('jwtAuthToken', { path: '/'}).status(200).send('Ok.')
     //res.clearCookie("jwtAuthToken");
   },
   authenticate: (req, res) => {

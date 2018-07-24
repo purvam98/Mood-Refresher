@@ -6,6 +6,11 @@ import { List, ListItem } from "../../components/List";
 import Nav from "../../components/Nav";
 import "./Results.css";
 import ReactModal from 'react-modal';
+import { ButtonGroup, ButtonToolbar, Button } from 'react-bootstrap'
+
+var appElement = document.getElementById('example');
+
+ReactModal.setAppElement(appElement);
 
 class Results extends Component {
     constructor() {
@@ -35,6 +40,7 @@ class Results extends Component {
             review2_author_text: "",
             review3_author_text: "",
             photo_d: "",
+            placeid: '',
             i: 1,
             logged: "",
             id: '',
@@ -68,21 +74,21 @@ class Results extends Component {
 
     getProfile() {
         API.getProfile()
-          .then(res => {
-            if (res.status === 200) {
-              this.setState({ status: 200 })
-              this.setState({ logged: res.data.success, id: res.data.id, favedPlaces: res.data.places })
-            } else {
-              this.setState({ status: 403 })
+            .then(res => {
+                if (res.status === 200) {
+                    this.setState({ status: 200 })
+                    this.setState({ logged: res.data.success, id: res.data.id, favedPlaces: res.data.places })
+                } else {
+                    this.setState({ status: 403 })
+                }
             }
-          }
-          ).catch(err => {
-            if (err.response.status === 403) {
-              this.setState({ status: 403 })
+            ).catch(err => {
+                if (err.response.status === 403) {
+                    this.setState({ status: 403 })
+                }
             }
-          }
-          );
-      };
+            );
+    };
 
     loadWeather = () => {
         API.getWeather(this.props.match.params.zipcode)
@@ -108,7 +114,7 @@ class Results extends Component {
                 });
         }
         else {
-           alert("Please Login First");
+            alert("Please Login First");
         }
     };
 
@@ -144,9 +150,8 @@ class Results extends Component {
     handleDetails = (id) => {
         API.getPlacesDetails(id)
             .then((res) => {
-
                 this.setState({ details: res.data })
-                console.log(this.state.details);
+                console.log(this.state.details)
                 if (this.state.details.hasOwnProperty('opening_hours')) {
                     this.setState({ weekday_text: this.state.details.opening_hours.weekday_text })
                 }
@@ -194,7 +199,7 @@ class Results extends Component {
     render() {
         return (
             <div>
-                <Nav logged={this.state.logged} id={this.state.id} places={this.state.favedPlaces}/>
+                <Nav logged={this.state.logged} id={this.state.id} places={this.state.favedPlaces} />
                 <Container fluid>
 
                     <Row>
@@ -213,18 +218,17 @@ class Results extends Component {
                     <br />
                     <Row>
                         {this.state.places_final.map(place => (
-                            <Col size="md-4" align="center">
+                            <Col size="md-4" align="center" key={place.id} >
                                 <div className="div">
                                     <h3 className="title middle">{place.name}</h3>
                                     <img className="img_middle" align="middle" src={place.photos !== "oops" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + place.photos + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} width="300px" height="200px" />
                                     <Row>
-                                        <Col size="md-2"></Col>
-                                        <Col size="md-4" align="middle">
-                                            <button align="middle" onClick={() => this.handleDetails(place.place_id)} type="button" class="btn btn-primary button_details" style={{ margin: '0 auto' }}>More Details</button>
-                                        </Col>
-                                        <Col size="md-4" align="middle">
-                                            <button align="middle" onClick={() => this.submit(place.place_id)} type="button" class="btn btn-primary button_details" style={{ margin: '0 auto' }}>Save Place</button>
-                                        </Col>
+                                        <ButtonToolbar style={{ margin: 'auto', flex: '1', justifyContent: 'center' }}>
+                                            <ButtonGroup>
+                                                <Button onClick={() => this.handleDetails(place.place_id)}>More Details</Button>
+                                                <Button onClick={() => this.submit(place.place_id)}>Fave</Button>
+                                            </ButtonGroup>
+                                        </ButtonToolbar>
                                     </Row>
                                 </div>
                             </Col>
@@ -234,7 +238,6 @@ class Results extends Component {
                         isOpen={this.state.showModal}
                         contentLabel="Minimal Modal Example"
                     >
-                        {/* {this.state.weekday_text[0]}   */}
 
                         <Row>
                             <Col size="md-12" align="center">
@@ -300,13 +303,19 @@ class Results extends Component {
                         </Row>
 
                         {/* <button align="center" onClick={this.handleCloseModal}>Close Modal</button> */}
-                        <Col size="md-12" align="center">
-
-                            <div className="col-md-12 text-center">
-                                <button onClick={this.handleCloseModal} type="button" class="btn btn-primary">Close</button>&nbsp;
-                                <button type="button" class="btn btn-primary">Add To Favourite</button>
-                            </div>
-                        </Col>
+                        <Row>
+                            <Col size="md-12" align="center">
+                                <div className="col-md-12 text-center" style={{ flexDirection: 'row' }}>
+                                    <ButtonToolbar style={{ margin: 'auto', flex: '1', justifyContent: 'center' }}>
+                                        <ButtonGroup>
+                                            <Button onClick={() => this.submit(this.state.details.place_id)}>Fave</Button>
+                                            <Button>Share</Button>
+                                            <Button onClick={this.handleCloseModal}>Close</Button>
+                                        </ButtonGroup>
+                                    </ButtonToolbar>
+                                </div>
+                            </Col>
+                        </Row>
                     </ReactModal>
                 </Container>
             </div>
