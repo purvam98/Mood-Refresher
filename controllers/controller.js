@@ -180,7 +180,14 @@ module.exports = {
       })
     } else {
       verifyToken(req).then(result => {
-        result.success ? result.decoded = result.decoded.username : result.decoded = '';
+        console.log(result.decoded.userId)
+        result.success ? result.decoded = {
+          'username': result.decoded.username,
+          'id': result.decoded.userId
+        } : result.decoded = {
+          'username': false,
+          'id': false
+        };
         res.json(result);
       }).catch(err => res.status(403).json(err));
     }
@@ -204,8 +211,8 @@ module.exports = {
         }
       }).catch(err => res.status(403).json(err));
     }
-    },
-    navigate: function (req, res) {
-      res.sendFile(path.join(__dirname, '../client/build/', 'index.html'));
-    },
-  };
+  },
+  navigate: function (req, res) {
+    res.sendFile(path.join(__dirname, '../client/build/', 'index.html'));
+  },
+};

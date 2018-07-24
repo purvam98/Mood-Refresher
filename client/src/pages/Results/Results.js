@@ -65,6 +65,7 @@ class Results extends Component {
         });
         this.loadWeather();
         this.loadlatlong();
+        this.auth();
 
     }
     loadWeather = () => {

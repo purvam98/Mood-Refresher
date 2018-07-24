@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 //import { Link } from "react-router-dom";
+import Nav from "../../components/Nav";
 import { Redirect } from 'react-router';
 import { List, ListItem } from "../../components/List";
 import { Col, Row, Container } from "../../components/Grid";
@@ -62,7 +63,8 @@ class Login extends Component {
     }
 
     return (
-
+      <div>
+        <Nav logged={this.state.logged} id={this.state.id}/>
       <Container fluid>
         <List>
           {this.state.places.map(place => (
@@ -85,6 +87,7 @@ class Login extends Component {
           ))}
         </List>
       </Container>
+      </div>
     );
   }
 }

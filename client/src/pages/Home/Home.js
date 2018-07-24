@@ -2,25 +2,46 @@ import React, { Component } from "react";
 import logo from '../../logo.svg';
 import header from './title.gif';
 import '../../App.css';
+import Nav from "../../components/Nav";
 import { List, ListItem } from "../../components/List";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link } from "react-router-dom";
-import Nav from "../../components/Nav";
 
 class App extends Component {
 
   state = {
     logged: "",
     zipcode: "",
-    show: false
-
+    show: false,
+    id: "",
+    places: [],
+    status: ""
   };
 
   componentDidMount() {
     this.auth();
   }
+
+  getProfile() {
+    API.getProfile(this.props.id)
+      .then(res => {
+        console.log(res.data)
+        if (res.status === 200) {
+          this.setState({ status: 200 })
+          this.setState({ places: res.data })
+        } else {
+          this.setState({ status: 403 })
+        }
+      }
+      ).catch(err => {
+        if (err.response.status === 403) {
+          this.setState({ status: 403 })
+        }
+      }
+      );
+  };
 
   handleClose() {
     this.setState({ show: false });
@@ -32,10 +53,12 @@ class App extends Component {
 
   auth = () => {
     API.authenticate().then(res =>
-      this.setState({ logged: res.data.success }),
-      console.log(this.state.logged)
+      this.setState({ logged: res.data.success, id: res.data.decoded.id })
     )
       .catch(err => console.log(err));
+      if (this.state.logged) {
+        this.getProfile(this.state.id)
+      }
   };
 
   handleInputChange = event => {
@@ -58,7 +81,7 @@ class App extends Component {
 
     return (
       <div>
-        <Nav logged={this.state.logged} onClick={this.handleShow.bind(this)} onHide={this.handleClose.bind(this)}/>
+        <Nav logged={this.state.logged} id={this.state.id}/>
 
         <Container fluid>
           <br />
