@@ -108,7 +108,10 @@ module.exports = {
                       'email': req.body.email,
                       'password': hash
                     })
-                    .then(dbModel => res.json(dbModel))
+                    .then(dbModel => res.json({
+                      'success': true,
+                      'msg': 'Registered'
+                    }))
                     .catch(err => res.status(422).json(err))
                 );
               }
@@ -116,6 +119,7 @@ module.exports = {
           }).catch((err) => {
             res.json({
               'error': err,
+              'success': false,
               'msg': 'oops... something went wrong'
             })
           })

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 //import { Link } from "react-router-dom";
 import API from "../../utils/API";
+import { Redirect } from 'react-router';
 import Nav from "../../components/Nav";
 import { Input, FormBtn } from "../../components/Form";
 import { Col, Row, Container } from "../../components/Grid";
@@ -44,8 +45,8 @@ class Register extends Component {
     }
   };
   render() {
-    if (this.state.status === 403) {
-      return <Redirect to="/login" />
+    if (this.state.status === 200) {
+      return <Redirect to="/" />
     }
     return (
       <div>
