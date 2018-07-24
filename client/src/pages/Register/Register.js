@@ -44,6 +44,9 @@ class Register extends Component {
     }
   };
   render() {
+    if (this.state.status === 403) {
+      return <Redirect to="/login" />
+    }
     return (
       <div>
       <Nav logged={this.state.logged}/>
