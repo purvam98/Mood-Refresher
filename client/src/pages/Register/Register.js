@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 //import { Link } from "react-router-dom";
 import API from "../../utils/API";
+import Nav from "../../components/Nav";
 import { Input, FormBtn } from "../../components/Form";
 import { Col, Row, Container } from "../../components/Grid";
 import "./Register.css";
@@ -10,15 +11,19 @@ class Register extends Component {
   state = {
     username: "",
     email: "",
-    password: ""
+    password: "",
+    logged: ""
   };
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
-  // componentDidMount() {
-  //   API.getBook(this.props.match.params.id)
-  //     .then(res => this.setState({ book: res.data }))
-  //     .catch(err => console.log(err));
-  // }
+  componentDidMount() {
+    this.auth();
+  };
+  auth = () => {
+    API.authenticate().then(res =>
+      this.setState({ logged: res.data.success }),
+      console.log(this.state.logged)
+    )
+      .catch(err => console.log(err));
+  };
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -40,6 +45,8 @@ class Register extends Component {
   };
   render() {
     return (
+      <div>
+      <Nav logged={this.state.logged}/>
       <Container fluid>
         <br />
         <br />
@@ -105,6 +112,7 @@ class Register extends Component {
         </form>
 
       </Container>
+      </div>
     );
   }
 }

@@ -11,9 +11,6 @@ function verifyToken(req) {
             decoded: '',
             success: true
         }
-        if (Object.keys(req.signedCookies).length === 0) {
-            reject(Error('not logged in'));
-        } else {
             // if (req.url.includes('/users/auth/')) {
             //     id = req.url.slice(12, req.url.length)
             // }
@@ -39,7 +36,7 @@ function verifyToken(req) {
                         })
                 }
             })
-        }
+        
     })
 }
 

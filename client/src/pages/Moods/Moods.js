@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import API from "../../utils/API";
 import "./Moods.css";
+import Nav from "../../components/Nav";
 
 class Moods extends Component {
   state = {
@@ -62,7 +63,8 @@ class Moods extends Component {
   render() {
 
     return (
-
+      <div>
+        <Nav logged={this.state.logged} />
       <Container fluid>
         
         <Row>
@@ -118,7 +120,7 @@ class Moods extends Component {
         </Row>
 
       </Container>
-
+      </div>
     );
   }
 }

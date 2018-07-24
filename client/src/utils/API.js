@@ -67,6 +67,9 @@ export default {
       }
     })
   },
+  authenticate: () => {
+    return axios.get("/api/mood/auth/nav/");
+  },
   getProfile: function(id) {
     return axios.get("/api/mood/users/auth/" + id)
   },

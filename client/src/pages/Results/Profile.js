@@ -1,24 +1,21 @@
 import React, { Component } from "react";
-import Nav from "../../components/Nav";
+import { Link } from "react-router-dom";
 import { Redirect } from 'react-router';
-import { Container } from "../../components/Grid";
-import { Input, FormBtn } from "../../components/Form";
+import { Col, Row, Container } from "../../components/Grid";
+import { Input, TextArea, FormBtn } from "../../components/Form";
 import API from "../../utils/API";
 
 class Login extends Component {
   state = {
-    email: "",
-    password: "",
-    redirect: "",
-    id: ""
+    places: []
   };
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
-  // componentDidMount() {
-  //   API.getBook(this.props.match.params.id)
-  //     .then(res => this.setState({ book: res.data }))
-  //     .catch(err => console.log(err));
-  // }
+  When this component mounts, grab the book with the _id of this.props.match.params.id
+  e.g. localhost:3000/books/599dcb67f0f16317844583fc
+  componentDidMount() {
+    API.getBook(this.props.match.params.id)
+      .then(res => this.setState({ book: res.data }))
+      .catch(err => console.log(err));
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -38,11 +35,10 @@ class Login extends Component {
         {
           this.setState({ password: "", email: "" })
           if (res.status === 200){ 
-            console.log(res.data)
-            this.setState({ id: res.data, redirect: 200 })
+            this.setState({ redirect: 200 })
           // or <Redrect to="/thankyou" /> if you are using react-router
         } else {
-          this.setState({ redirect: 403 })
+          this.setState({ redirect: 401 })
         }
         })
         .catch(err => console.log(err));
@@ -51,17 +47,14 @@ class Login extends Component {
 
   render() {
     if (this.state.redirect === 200){ 
-      console.log(this.state.redirect)
-      return <Redirect to={"/users/auth/" + this.state.id} />
-      // "/books/" + book._id
+      return <Redirect to="/" />
       // or <Redrect to="/thankyou" /> if you are using react-router
-    } else if (this.state.redirect === 403) {
+    } else if (this.state.redirect === 401) {
       return <Redirect to="/login" />
     }
 
     return (
-      <div>
-      <Nav logged={this.state.logged}/>
+      
       <Container fluid>
         <form>
               <Input
@@ -84,7 +77,6 @@ class Login extends Component {
               </FormBtn>
             </form>
       </Container>
-      </div>
     );
   }
 }

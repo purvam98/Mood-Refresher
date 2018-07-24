@@ -7,32 +7,28 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link } from "react-router-dom";
+import Nav from "../../components/Nav";
 
 class App extends Component {
 
   state = {
-    // search: "",
-    // saved: "",
-    // topics: [],
-    // results: [],
-    // articles: [],
-    // places: [],
-    // error: ""
+    logged: "",
     zipcode: ""
 
   };
 
-  // componentDidMount() {
-  //   this.loadSave();
-  // }
+  componentDidMount() {
+    this.auth();
+  }
 
-  // loadSave = () => {
-  //   API.getPlaces().then(res =>
-  //     this.setState({ places: res.data})
-  //   )
-  //   .catch(err => console.log(err));
-  // };
-      
+  auth = () => {
+    API.authenticate().then(res =>
+      this.setState({ logged: res.data.success }),
+      console.log(this.state.logged)
+    )
+      .catch(err => console.log(err));
+  };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -43,72 +39,65 @@ class App extends Component {
     event.preventDefault();
 
   };
+  doit = (log) => {
+    console.log(log)
+    const logged = log;
+    return logged
+  }
 
   render() {
+
     return (
-      // <div className="App">
-      //   <header className="App-header">
-      //     <img src={logo} className="App-logo" alt="logo" />
-      //     <h1 className="App-title">mood refresher</h1>
-      //   </header>
-      //   <p className="App-intro">
-      //     To get started, edit <code>src/App.js</code> and save to reload.
-      //   </p>
-      //   <List>
-      //           {this.state.places.map(place => (
-      //             <ListItem key={place.id}>
-      //             <div>{place.address}</div>
-      //             {/* <a href={article.web_url}>{article.title}</a> */}
-      //             </ListItem>
-      //           ))}
-      //         </List>
-      // </div>
-      <Container fluid>
-        <br />
-        <br />
-        <br />
-        <Row>
-          <Col size="md-4">
-          </Col>
-          <Col size="md-6">
-            <img src={header} />
-          </Col>
+      <div>
+        <Nav logged={this.state.logged} />
 
-        </Row>
-        <Row>
-          <Col size="md-3">
-          </Col>
-          <Col size="md-1">
-          </Col>
-          <Col size="md-4 ">
-            <h3 className="title">Enter Your Zipcode to refresh your  Mood</h3>
-          </Col>
+        <Container fluid>
+          <br />
+          <br />
+          <br />
+          <Row>
+            <Col size="md-4">
+            </Col>
+            <Col size="md-6">
+              <img src={header} />
+            </Col>
 
-        </Row>
-        
-        <Row>
-          <Col size="md-5">
-          </Col>
-          <Col size="md-2">
-            <form>
+          </Row>
+          <Row>
+            <Col size="md-3">
+            </Col>
+            <Col size="md-1">
+            </Col>
+            <Col size="md-4 ">
+              <h3 className="title">Enter Your Zipcode to refresh your  Mood</h3>
+            </Col>
 
-              <Input
-                value={this.state.zipcode}
-                onChange={this.handleInputChange}
-                name="zipcode"
-                placeholder="Enter the ZipCode"
-              />
-              <a
-                href={"/Moods/"+this.state.zipcode}
-                className="button"
-              >
-                Submit
+          </Row>
+
+          <Row>
+            <Col size="md-5">
+            </Col>
+            <Col size="md-2">
+              <form>
+
+                <Input
+                  value={this.state.zipcode}
+                  onChange={this.handleInputChange}
+                  name="zipcode"
+                  placeholder="Enter the ZipCode"
+                />
+                <a
+                  href={"/Moods/" + this.state.zipcode}
+                  className="button"
+                >
+                  Submit
               </a>
-            </form>
-          </Col>
+              </form>
+            </Col>
 
-        </Row>
-      </Container>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }

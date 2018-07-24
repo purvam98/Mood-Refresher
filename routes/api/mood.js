@@ -5,11 +5,13 @@ const verifyToken = require('../../auth.js').verifyToken
 router
   .route("/")
   .get(controller.getPlaces)
-  .get(controller.login)
   .post(controller.save)
-  .delete(controller.remove);
 
-  router
+router
+  .route("/auth/nav")
+  .get(controller.authenticate)
+
+router
   .route("/details")
   .get(controller.getPlacesDetails);
 
@@ -22,12 +24,10 @@ router
   .get(controller.login)
   .post(controller.register)
 
-//router.use(verifyToken)
-
 router
   .route("/users/auth/:id")
-  .get(controller.authenticate)
-  
+  .get(controller.profile)
+
 router
   .route("*")
   .get(controller.navigate);
