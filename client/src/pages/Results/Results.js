@@ -105,9 +105,7 @@ class Results extends Component {
             API.save(result[0])
                 .then((res) => {
                     alert("Its been added in your favourite list.");
-                    console.log(res.data);
                 }).catch((err) => {
-                    console.log(err);
                 });
         }
         else {
