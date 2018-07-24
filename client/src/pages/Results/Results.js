@@ -6,7 +6,7 @@ import { List, ListItem } from "../../components/List";
 import Nav from "../../components/Nav";
 import "./Results.css";
 import ReactModal from 'react-modal';
-import { ButtonGroup, ButtonToolbar, Button } from 'react-bootstrap'
+import { ButtonGroup, ButtonToolbar, Button, Glyphicon, Well } from 'react-bootstrap'
 
 var appElement = document.getElementById('example');
 
@@ -14,7 +14,6 @@ ReactModal.setAppElement(appElement);
 
 class Results extends Component {
     constructor() {
-
         super();
         this.state = {
             zipcode: "",
@@ -27,6 +26,7 @@ class Results extends Component {
             photos: [],
             places_final: [],
             details: [],
+            photos: [],
             showModal: false,
             weekday_text: [],
             reviews: [],
@@ -70,7 +70,7 @@ class Results extends Component {
         this.loadWeather();
         this.loadlatlong();
         this.getProfile()
-    }
+    };
 
     getProfile() {
         API.getProfile()
@@ -105,8 +105,7 @@ class Results extends Component {
         if (this.state.logged) {
             let result = this.state.places.filter(obj => {
                 return obj.place_id === id
-            })
-
+            });
             API.save(result[0])
                 .then((res) => {
                     alert("Its been added in your favourite list.");
@@ -128,7 +127,8 @@ class Results extends Component {
             }
         })
         this.setState({ places_final: places });
-    }
+    };
+
     loadlatlong = () => {
         API.getLatLong(this.props.match.params.zipcode)
             .then((res) => {
@@ -145,8 +145,8 @@ class Results extends Component {
             }).catch((err) => {
                 console.log(err);
             });
-
     };
+
     handleDetails = (id) => {
         API.getPlacesDetails(id)
             .then((res) => {
@@ -174,8 +174,9 @@ class Results extends Component {
                     this.setState({ reviews: "-" })
                 }
                 if (this.state.details.hasOwnProperty('photos')) {
-
+                    console.log(this.state.details.photos),
                     this.setState({ photo_d: this.state.details.photos[0].photo_reference });
+                    this.setState({photos: this.state.details.photos})
                 }
                 else {
                     this.setState({ photo_d: "-" });
@@ -183,11 +184,10 @@ class Results extends Component {
             });
         this.handleOpenModal();
     };
+
     nextpitcure = () => {
         this.state.i = this.state.i + 1;
         if (this.state.details.photos[this.state.i]) {
-
-
             this.setState({ photo_d: this.state.details.photos[this.state.i].photo_reference });
         }
         else {
@@ -221,12 +221,15 @@ class Results extends Component {
                             <Col size="md-4" align="center" key={place.id} >
                                 <div className="div">
                                     <h3 className="title middle">{place.name}</h3>
-                                    <img className="img_middle" align="middle" src={place.photos !== "oops" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + place.photos + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} width="300px" height="200px" />
+                                    <img className="img_middle" align="middle" src={place.photos !== "oops" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + place.photos + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} width="300px" height="200px" style={{ paddingBottom: "15px" }} />
+                                    <br></br>
                                     <Row>
                                         <ButtonToolbar style={{ margin: 'auto', flex: '1', justifyContent: 'center' }}>
                                             <ButtonGroup>
-                                                <Button onClick={() => this.handleDetails(place.place_id)}>More Details</Button>
-                                                <Button onClick={() => this.submit(place.place_id)}>Fave</Button>
+                                                <Button bsStyle="primary" onClick={() => this.handleDetails(place.place_id)}>More Details</Button>
+                                                <Button bsStyle="primary" onClick={() => this.submit(place.place_id)}>
+                                                    <Glyphicon glyph="star" />Fave
+                                                </Button>
                                             </ButtonGroup>
                                         </ButtonToolbar>
                                     </Row>
@@ -268,11 +271,21 @@ class Results extends Component {
                                 <h6 className="middle"><b>{this.state.weekday_text[6]} </b></h6>
 
                             </Col>
-                            <Col size="md-12" align="center">
+                            <Col size="md-12" align="center" style={{width: '100%'}} style={{backgroundColor: 'grey'}}>
                                 <div className="col-md-12 text-center">
                                     <br />
-                                    <img className="img_middle" align="middle" src={this.state.photo_d !== "-" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + this.state.photo_d + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} width="400px" height="200px" />
-
+                                    {/* <Carousel
+                                        // activeIndex={index}
+                                        // direction={direction}
+                                        // onSelect={this.handleSelect}
+                                    >
+                                    {this.state.photos.map(photo => (
+                                        <Carousel.Item>
+                                            <img height={200} alt="200w" src={this.state.photos !== "-" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photo.photo_reference + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} />
+                                        </Carousel.Item>
+                                    ))} */}
+                                        <img className="img_middle" align="middle" src={this.state.photo_d !== "-" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + this.state.photo_d + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} width="400px" height="200px" />
+                                    {/* </Carousel> */}
                                     <br />
                                     <br />
                                     <button type="button" class="btn btn-primary" onClick={this.nextpitcure}>Next</button>
@@ -308,9 +321,9 @@ class Results extends Component {
                                 <div className="col-md-12 text-center" style={{ flexDirection: 'row' }}>
                                     <ButtonToolbar style={{ margin: 'auto', flex: '1', justifyContent: 'center' }}>
                                         <ButtonGroup>
-                                            <Button onClick={() => this.submit(this.state.details.place_id)}>Fave</Button>
-                                            <Button>Share</Button>
-                                            <Button onClick={this.handleCloseModal}>Close</Button>
+                                            <Button bsStyle="primary" onClick={() => this.submit(this.state.details.place_id)}>Fave</Button>
+                                            <Button bsStyle="primary" >Share</Button>
+                                            <Button bsStyle="primary" onClick={this.handleCloseModal}>Close</Button>
                                         </ButtonGroup>
                                     </ButtonToolbar>
                                 </div>

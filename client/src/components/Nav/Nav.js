@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { Col, Row, Container } from "../../components/Grid";
 import ReactModal from 'react-modal';
 import API from "../../utils/API";
+import { ButtonGroup, ButtonToolbar, Button } from 'react-bootstrap'
 
 const appElement = document.getElementById('example');
 
@@ -91,9 +92,9 @@ class Nav extends Component {
             </li>
           </ul>
           <h3></h3>
-          {this.props.logged && <button type="button" onClick={this.handleShow}>
+          {this.props.logged && <Button type="button" onClick={this.handleShow}>
             My Stuff
-        </button>}
+        </Button>}
           <div className="static-modal" style={{ overflowX: 'none' }}>
             <ReactModal isOpen={this.state.show} contentLabel="Minimal Modal Example" ariaHideApp={false} style={{ customStyles }}>
               <div className="modal-content">

@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const verifyToken = require('../authService.js').verifyToken
 const agentMan = require('../config/config.js');
+
 const googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4',
   Promise: Promise
@@ -38,6 +39,7 @@ module.exports = {
       })
       .catch((err) => res.status(422).json(err));
   },
+
   getPlacesDetails: function (req, res) {
     googleMapsClient.place({
       placeid: req.query.id
@@ -55,6 +57,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   save: function (req, res) {
     verifyToken(req).then(result => {
       if (result.success) {
@@ -73,6 +76,7 @@ module.exports = {
       }
     }).catch(err => res.status(403).json(err))
   },
+
   remove: function (req, res) {
     //db.users.update({_id: ObjectId("5b500eb398ac8f428c3683c8")}, {$pull: { places: [ "09c9f64cbaab0fb65fb52d19047760998d80a34b" ]}})
     db.User
@@ -81,6 +85,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   register: (req, res) => {
     if (Object.keys(req.signedCookies).length === 0) {
       bcrypt.genSalt(10, function (err, salt) {
@@ -131,6 +136,7 @@ module.exports = {
       }).catch(err => res.status(403).json(err));
     }
   },
+
   login: (req, res, next) => {
     if (Object.keys(req.signedCookies).length === 0) {
       db.User
@@ -166,11 +172,11 @@ module.exports = {
       }).catch(err => res.status(403).json(err));
     }
   },
+
   logout: (req, res) => {
-    //console.log(res)
     res.clearCookie('jwtAuthToken', { path: '/'}).status(200).send('Ok.')
-    //res.clearCookie("jwtAuthToken");
   },
+
   authenticate: (req, res) => {
     if (Object.keys(req.signedCookies).length === 0) {
       res.json({

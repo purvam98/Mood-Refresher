@@ -8,6 +8,8 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link } from "react-router-dom";
+import { Redirect } from 'react-router';
+import { FormGroup, Form, Button, ControlLabel, FormControl } from 'react-bootstrap'
 
 class App extends Component {
 
@@ -67,10 +69,12 @@ class App extends Component {
   }
 
   render() {
-
+    // if (this.state.zipcode) {
+    //   return <Redirect to={"/Moods/" + this.state.zipcode} />
+    // }
     return (
       <div>
-        <Nav logged={this.state.logged} id={this.state.id} places={this.state.places}/>
+        <Nav logged={this.state.logged} id={this.state.id} places={this.state.places} />
 
         <Container fluid>
           <br />
@@ -98,8 +102,15 @@ class App extends Component {
           <Row>
             <Col size="md-5">
             </Col>
-            <Col size="md-2">
-              <form>
+            <Col size="md-3">
+              {/* <Form>
+                <FormGroup controlId="formInlineEmail">
+                  <ControlLabel>Zipcode</ControlLabel>{' '}
+                  <FormControl value={this.state.zipcode}type="text" placeholder="Enter Zip" />
+                </FormGroup>{' '}
+                <Button type="submit" OnSubmit={this.handleInputChange}>Find Yo Moods</Button>
+              </Form>; */}
+              <form style={{flexDirection: "row"}}>
 
                 <Input
                   value={this.state.zipcode}
@@ -118,7 +129,7 @@ class App extends Component {
 
           </Row>
         </Container>
-      </div>
+      </div >
     );
   }
 }
