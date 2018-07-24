@@ -13,12 +13,21 @@ class App extends Component {
 
   state = {
     logged: "",
-    zipcode: ""
+    zipcode: "",
+    show: false
 
   };
 
   componentDidMount() {
     this.auth();
+  }
+
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
   }
 
   auth = () => {
@@ -49,7 +58,7 @@ class App extends Component {
 
     return (
       <div>
-        <Nav logged={this.state.logged} />
+        <Nav logged={this.state.logged} onClick={this.handleShow.bind(this)} onHide={this.handleClose.bind(this)}/>
 
         <Container fluid>
           <br />
