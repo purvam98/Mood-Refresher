@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import API from "../../utils/API";
+import { Input, TextArea, FormBtn } from "../../components/Form";
 import { List, ListItem } from "../../components/List";
 import Nav from "../../components/Nav";
 import "./Results.css";
 import ReactModal from 'react-modal';
-import { ButtonGroup, ButtonToolbar, Button, Glyphicon, Well } from 'react-bootstrap'
+import { ButtonGroup, ButtonToolbar, Button, Glyphicon, Well } from 'react-bootstrap';
 
 var appElement = document.getElementById('example');
 
@@ -39,6 +40,8 @@ class Results extends Component {
             review1_author_text: "",
             review2_author_text: "",
             review3_author_text: "",
+            modalemail: false,
+            email: "",
             photo_d: "",
             placeid: '',
             i: 1,
@@ -58,6 +61,19 @@ class Results extends Component {
     handleCloseModal() {
         this.setState({ showModal: false });
     }
+
+    handlemoddal() {
+        this.setState({ modalemail: true });
+    }
+    handlemoddalclose() {
+        this.setState({ modalemail: false });
+    }
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    };
 
     componentDidMount() {
 
@@ -89,6 +105,11 @@ class Results extends Component {
             }
             );
     };
+
+    handlefinal=()=>{
+
+                alert('message sent');
+    }
 
     loadWeather = () => {
         API.getWeather(this.props.match.params.zipcode)
@@ -175,8 +196,8 @@ class Results extends Component {
                 }
                 if (this.state.details.hasOwnProperty('photos')) {
                     console.log(this.state.details.photos),
-                    this.setState({ photo_d: this.state.details.photos[0].photo_reference });
-                    this.setState({photos: this.state.details.photos})
+                        this.setState({ photo_d: this.state.details.photos[0].photo_reference });
+                    this.setState({ photos: this.state.details.photos })
                 }
                 else {
                     this.setState({ photo_d: "-" });
@@ -271,7 +292,7 @@ class Results extends Component {
                                 <h6 className="middle"><b>{this.state.weekday_text[6]} </b></h6>
 
                             </Col>
-                            <Col size="md-12" align="center" style={{width: '100%'}} style={{backgroundColor: 'grey'}}>
+                            <Col size="md-12" align="center" style={{ width: '100%' }} style={{ backgroundColor: 'grey' }}>
                                 <div className="col-md-12 text-center">
                                     <br />
                                     {/* <Carousel
@@ -284,7 +305,7 @@ class Results extends Component {
                                             <img height={200} alt="200w" src={this.state.photos !== "-" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photo.photo_reference + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} />
                                         </Carousel.Item>
                                     ))} */}
-                                        <img className="img_middle" align="middle" src={this.state.photo_d !== "-" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + this.state.photo_d + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} height="200px" />
+                                    <img className="img_middle" align="middle" src={this.state.photo_d !== "-" ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + this.state.photo_d + "&key=AIzaSyBWGS0HJ1QdcEcm-bQKWv_gkpww3u88Ge4" : require(`./not-found.png`)} height="200px" />
                                     {/* </Carousel> */}
                                     <br />
                                     <br />
@@ -322,13 +343,27 @@ class Results extends Component {
                                     <ButtonToolbar style={{ margin: 'auto', flex: '1', justifyContent: 'center' }}>
                                         <ButtonGroup>
                                             <Button bsStyle="primary" onClick={() => this.submit(this.state.details.place_id)}>Fave</Button>
-                                            <Button bsStyle="primary" >Share</Button>
+                                            <Button bsStyle="primary" onClick={() => this.handlemoddal()}>Share</Button>
                                             <Button bsStyle="primary" onClick={this.handleCloseModal}>Close</Button>
                                         </ButtonGroup>
                                     </ButtonToolbar>
                                 </div>
                             </Col>
                         </Row>
+                    </ReactModal>
+                    <ReactModal
+                        isOpen={this.state.modalemail}
+                        contentLabel="Minimal Modal Example">
+                        <form>
+                            <Input
+                                value={this.state.email}
+                                onChange={this.handleInputChange}
+                                name="email"
+                                placeholder="Enter the email"
+                            />
+                            <Button onClick={this.handlefinal}>Send</Button>
+                        </form>
+                        <Button onClick={this.handlemoddalclose}>Close</Button>
                     </ReactModal>
                 </Container>
             </div>
